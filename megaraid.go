@@ -82,7 +82,7 @@ func main() {
 			os.Exit(0)
 		}
 		switch *statsDeviceType {
-		case "ad":
+		case "raid":
 			getRaidStats(*statsDeviceName)
 		case "ld":
 			getStatsLogicalDrive(*statsDeviceName)
