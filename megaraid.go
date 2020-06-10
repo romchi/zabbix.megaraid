@@ -9,6 +9,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"regexp"
 	"strconv"
 	"strings"
 )
@@ -204,7 +205,9 @@ func processLine(line string, valueType int) interface{} {
 	data := strings.TrimSpace(split[1])
 
 	if valueType == valString {
-		return string(data)
+		re := regexp.MustCompile("[0-9A-Za-z_,.]+")
+		d := re.FindAllString(data, -1)
+		return string(strings.Join(d, " "))
 	}
 	if valueType == valInt {
 		value, err := strconv.ParseInt(data, 10, 0)

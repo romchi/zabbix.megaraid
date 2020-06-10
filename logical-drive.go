@@ -45,7 +45,6 @@ func (d *discovery) discoveryLD(line string) error {
 func (stats *ldStats) collect(line string) error {
 	if strings.HasPrefix(line, "LogicalDrive") {
 		data := processLine(line, valString)
-		fmt.Print(line)
 		stats.DeviceID = data.(string)
 	}
 	if strings.HasPrefix(line, "Name") {
@@ -148,7 +147,7 @@ func getStatsLogicalDrive(ldName string) {
 		}
 	}
 	if _, ok := result[ldName]; ok {
-		//r, _ := json.MarshalIndent(disk[pdName], "", " ")
+		//r, _ := json.MarshalIndent(result, "", " ")
 		r, _ := json.Marshal(result[ldName])
 		fmt.Print(string(r))
 	} else {
@@ -159,7 +158,7 @@ func getStatsLogicalDrive(ldName string) {
 
 func discoveryLogicalDrive() {
 	//megacli -LDGetNum -a0
-	//megacli -LDInfo -Lall -a0
+	//megacli -LDInfo -Lall -aAll
 	bin, err := getBin("megacli")
 	if err != nil {
 		if debug {
