@@ -25,7 +25,7 @@ type discovery struct {
 	DeviceAlias string `json:"{#DEVICE_ALIAS}"`
 }
 
-var debug = false
+var debug = true
 
 func main() {
 	discoveryCommand := flag.NewFlagSet("discover", flag.ExitOnError)
@@ -111,6 +111,13 @@ func checkControllers() {
 			log.Printf("Unable check megacli controllers: %v", err)
 		}
 		fmt.Print(0)
+		os.Exit(0)
+	}
+	if raid == false {
+		if debug {
+			fmt.Printf("raid not installed - %t\n", raid)
+		}
+		fmt.Print(1)
 		os.Exit(0)
 	}
 	if raid && megacli {
